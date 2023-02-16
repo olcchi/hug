@@ -83,7 +83,7 @@ export default function Home() {
             <section className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 mx-auto transition-all'>
               <div className='flex items-center font-sans mb-4'>
                 {/* <span className='font-sans bg-black text-white w-6 h-6 mr-2 flex items-center justify-center rounded-full'>1</span> */}
-                <p className=' font-bold'>首先,请用几句话简单描述你的经历</p>
+                <p className=' font-bold'>首先,请用几句话简单描述你的情况</p>
               </div>
               <textarea className='p-5 h-72 w-full rounded-md border border-black focus:outline-none  focus:border-black focus:ring-2 focus:ring-black'
                 placeholder={'给我一些安慰'}

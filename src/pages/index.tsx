@@ -97,7 +97,7 @@ export default function Home() {
           <div className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5'>
           <p className='text-start text-2xl font-bold mb-5  '>生成的安慰语</p>
           </div>
-          <section className='bg-white rounded-xl p-5 hover:bg-gray-100 transition cursor-copy border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-96 '>
+          <section className='bg-white rounded-xl p-5 transition border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-96 '>
             <p className='font-sans'>
               {generatedDescs}
             </p>

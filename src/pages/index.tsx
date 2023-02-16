@@ -1,11 +1,52 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
+import { useState } from 'react'
 export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const [generatedDescs, setGeneratedDescs] = useState<string>("");
+  const [desc, setDesc] = useState("");
+  const defultDesc = '假设我们是朋友，当我和你说话你要严格的按照先说一声“这是给你的赛博拥抱”然后再说一些安慰的话的形式生成一片小短文'
+  let text = desc || defultDesc
+
+  const prompt = `假设我们是朋友，当我和你说话你要严格的按照先说一声“这是给你的赛博拥抱”然后再说一些安慰的话的形式生成一片小短文，内容关于:${text}${text.slice(-1) === "." ? "" : "."}`
+  const generateDesc = async (e: any) => {
+    e.preventDefault();
+    setGeneratedDescs("");
+    setLoading(true);
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+      }),
+    });
+    console.log("Edge function returned.");
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setGeneratedDescs((prev) => prev + chunkValue);
+    }
+
+    setLoading(false);
+  };
   return (
     <>
       <Head>
@@ -14,109 +55,49 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
+      <main className=' overflow-y-scroll snap-y snap-mandatory relative'>
+        <section className='flex flex-col items-center justify-center h-screen snap-center'>
+          <section className='text-2xl md:text-2xl font-sans font-bold  w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 transition-all mb-12'>
+            <p>
+              在你需要时，生成一个赛博拥抱和一段安慰语。
+            </p>
+          </section>
+          {/* <hr className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 transition-all mt-5 mb-5 border-black' /> */}
+          <section className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 mx-auto transition-all'>
+            <div className='flex items-center font-sans mb-4'>
+              <span className='font-sans bg-black text-white w-6 h-6 mr-2 flex items-center justify-center rounded-full'>1</span> <p className=' font-bold'>用几句简单描述你的经历</p>
+            </div>
+            <textarea className='p-5 h-80 w-full rounded-md border border-black focus:outline-none  focus:border-black focus:ring-2 focus:ring-black'
+              placeholder={'给我一些安慰'}
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
             />
-          </div>
-        </div>
+          </section>
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
+          <button className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 border h-10 rounded-xl text-white hover:opacity-80 bg-black font-bold transition-all mt-5' 
+          onClick={(e) => {generateDesc(e)}}>生成 &rarr;
+          </button>
+          
+        </section>
+        <section className='flex flex-col items-center h-screen justify-center snap-center'>
+          <p className=' text-2xl font-bold mb-5'>生成的安慰语</p>
+          <section className='bg-white rounded-xl p-5 hover:bg-gray-100 transition cursor-copy border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-96 '>
+            <p className='font-sans'>
+              {generatedDescs}
             </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+          </section>
+          <button className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 border h-10 font-bold rounded-xl text-white hover:opacity-80 bg-black transition-all mt-5'>
+            {loading && (
+              <p>生成中...</p>
+            )
+            }
+            {!loading && (
+              <p>我需要更多安慰</p>
+            )
+            }
+          </button >
+          <p className='text-center md:text-start w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 absolute bottom-5'>Powered by <span className='font-sans font-bold p-1'>OpenAI</span>+<span className='font-bold font-sans p-1'>Next.js</span>+<span className='font-sans font-bold p-1'>Vercel</span></p>
+        </section>
       </main>
     </>
   )

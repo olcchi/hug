@@ -99,7 +99,7 @@ export default function Home() {
         <section className='flex flex-col items-center h-screen justify-center snap-center relative'>
           <div className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5'>
           <p className='text-start text-2xl font-sans font-bold mb-5 mt-5 '>生成的安慰语。</p>
-          <p className=' font-bold mb-5'>你有一定概率得不到赛博拥抱,不要灰心,这是AI程序的缘故而不是你的</p>
+          <p className=' font-bold mb-5'>你有一定概率得不到赛博拥抱,这是AI程序的缘故而不是你的</p>
           </div>
           <section className='bg-white rounded-xl p-5 transition border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-96 '>
             <p className='font-sans'>

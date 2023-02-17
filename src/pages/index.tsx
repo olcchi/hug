@@ -100,7 +100,7 @@ export default function Home() {
           <p className='text-start text-2xl font-sans font-bold mb-5 mt-5 '>生成的安慰语。</p>
           <p className=' font-bold mb-5'>你有一定概率得不到赛博拥抱,这是AI程序的缘故而不是你的</p>
           </div>
-          <section className='bg-white rounded p-5 transition border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-72 '>
+          <section className='bg-white rounded p-5 border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-auto transition-all '>
             <p className='font-sans'>
               {generatedDescs}
             </p>

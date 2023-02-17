@@ -3,7 +3,6 @@ import { motion } from "framer-motion"
 import { useState, useRef } from 'react'
 export default function Home() {
   const scrollWrapper = useRef<HTMLDivElement>(null)
-  console.log(scrollWrapper);
   const [loading, setLoading] = useState(false);
   const [generatedDescs, setGeneratedDescs] = useState<string>("");
   const [desc, setDesc] = useState("");
@@ -63,7 +62,7 @@ export default function Home() {
       </Head>
       <main ref={scrollWrapper} className='h-screen overflow-y-scroll snap-y snap-mandatory'>
         <motion.div
-          initial={{ opacity: 0,scale:0.95 }}
+          initial={{ opacity: 0,scale:0.9 }}
           animate={{ opacity: 1,scale:1 }}
           transition={{ duration: 0.5 }}>
           <section className='flex flex-col items-center justify-center h-screen snap-center'>
@@ -85,13 +84,13 @@ export default function Home() {
                 {/* <span className='font-sans bg-black text-white w-6 h-6 mr-2 flex items-center justify-center rounded-full'>1</span> */}
                 <p className=' font-bold'>首先,请用几句话简单描述你的情况</p>
               </div>
-              <textarea className='p-5 h-72 w-full rounded-md border border-black focus:outline-none  focus:border-black focus:ring-2 focus:ring-black'
+              <textarea className='p-5 h-72 w-full rounded border border-black focus:outline-none  focus:border-black focus:ring-2 focus:ring-black'
                 placeholder={'给我一些安慰'}
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               />
             </section>
-            <button className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 border h-10 rounded-xl text-white hover:opacity-80 bg-black font-bold transition-all mt-5'
+            <button className='w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 border h-10 rounded-xl text-white hover:opacity-80 bg-black  font-bold transition-all mt-5'
               onClick={(e) => { generateDesc(e) }}>生成 &rarr;
             </button>
           </section>
@@ -101,7 +100,7 @@ export default function Home() {
           <p className='text-start text-2xl font-sans font-bold mb-5 mt-5 '>生成的安慰语。</p>
           <p className=' font-bold mb-5'>你有一定概率得不到赛博拥抱,这是AI程序的缘故而不是你的</p>
           </div>
-          <section className='bg-white rounded-xl p-5 transition border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-72 '>
+          <section className='bg-white rounded p-5 transition border border-black text-left w-4/5 md:w-3/5 xl:w-2/5 lg:w-2/5 h-72 '>
             <p className='font-sans'>
               {generatedDescs}
             </p>

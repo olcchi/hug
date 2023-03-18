@@ -100,7 +100,9 @@ export default function Home() {
                 <button className='flex-shrink w-20 text-xs md:text-base md:w-24 h-12 mr-2 ml-2 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
                   onClick={(e) => { generateDesc(e) }}>生成
                 </button>
-                <button className='flex-shrink text-xs md:text-base w-20 md:w-24 h-12 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
+                <button 
+                  disabled = {desc?false:true}
+                  className='disabled:opacity-30 flex-shrink text-xs md:text-base w-20 md:w-24 h-12 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
                   onClick={clearInput}>清空
                 </button>
               </section>):(<section className='w-full'>

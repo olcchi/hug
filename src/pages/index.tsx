@@ -63,7 +63,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1}}
+        transition={{duration: 0.5 }}
+      >
       <p className='font-sans font-bold text-2xl italic fixed top-0 left-0 p-5 text-white hover:scale-110 transition-all ease-in-out'>Hug</p>
+      </motion.div>
       <main ref={scrollWrapper} className='bg-neutral-900'>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -84,18 +90,18 @@ export default function Home() {
                   value={desc}
                   onChange={(e) => setDesc(e.target.value)}
                 />
-                <button className='flex-none w-24 h-12 mr-2 ml-2 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
+                <button className='flex-none w-20 md:w-24 h-12 mr-2 ml-2 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
                   onClick={(e) => { generateDesc(e) }}>生成
                 </button>
-                <button className='flex-none w-24 h-12 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
+                <button className='flex-none w-20 md:w-24 h-12 rounded text-white hover:opacity-80 bg-neutral-800  font-bold transition-all'
                   onClick={clearInput}>清空
                 </button>
               </section>
             </section>
             <section
              className='flex flex-col items-center w-4/5 md:1/2 lg:w-3/5 xl:w-1/3 transition-all'>
-              <section className='w-full h-48 bg-neutral-800 rounded p-5 text-left transition-all '>
-                <p className='font-sans'>
+              <section className='w-full h-auto bg-neutral-800 rounded p-5 text-left transition-all '>
+                <p className='font-sans text-white'>
                   {generatedDescs}
                 </p>
               </section>
@@ -111,6 +117,10 @@ export default function Home() {
           </button > */}
             </section>
           </section>
+        </motion.div>
+        <motion.div>
+          <p className='text-xs opacity-70 fixed p-5 text-white bottom-0'>made by <a target={'_blank'} href="https://ekar.site/">ekar</a><span className='mr-2 ml-2'>|</span>
+          <a className='border-b border-dashed hover:opacity-70 transition-all text-xs' href='https://github.com/Ekarmore/hug' target={'_blank'}>Github</a></p>
         </motion.div>
       </main>
     </>

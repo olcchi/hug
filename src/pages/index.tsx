@@ -119,8 +119,8 @@ export default function Home() {
           </section>
         </motion.div>
         <motion.div>
-          <p className='text-xs opacity-70 fixed p-5 text-white bottom-0'>made by <a target={'_blank'} href="https://ekar.site/">ekar</a><span className='mr-2 ml-2'>|</span>
-          <a className='border-b border-dashed hover:opacity-70 transition-all text-xs' href='https://github.com/Ekarmore/hug' target={'_blank'}>Github</a></p>
+          <p className='text-xs opacity-70 fixed p-5 text-white bottom-0'>made by <a rel='noopener noreferrer' target={'_blank'} href="https://ekar.site/">ekar</a><span className='mr-2 ml-2'>|</span>
+          <a rel='noopener noreferrer' className='border-b border-dashed hover:opacity-70 transition-all text-xs' href='https://github.com/Ekarmore/hug' target={'_blank'}>Github</a></p>
         </motion.div>
       </main>
     </>

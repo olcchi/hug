@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { motion } from "framer-motion"
-import Hug from '../components/Hug'
 import { useState, useRef } from 'react'
 export default function Home() {
   const scrollWrapper = useRef<HTMLDivElement>(null)

@@ -68,7 +68,7 @@ export default function Home() {
         <title>Hug</title>
         <meta name="description" content="Give you a hug !" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/hug.svg" />
       </Head>
       <motion.div
         initial={{ opacity: 0 }}
